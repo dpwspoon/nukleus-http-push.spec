@@ -40,21 +40,16 @@ public class OpeningHandshakeIT
 
     private final NukleusRule nukleus = new NukleusRule()
             .directory("target/nukleus-itests")
-            .streams("http2", "source")
-            .streams("target", "http2#source")
-            .streams("http2", "target")
-            .streams("source", "http2#target")
-            .streams("http", "source")
-            .streams("target", "http#source")
-            .streams("http", "target")
-            .streams("source", "http#target");
+            .streams("http-push", "source")
+            .streams("target", "http-push#source")
+            .streams("http-push", "target")
+            .streams("source", "http-push#target");
 
     @Rule
     public final TestRule chain = outerRule(nukleus).around(k3po).around(timeout);
 
     @Test
     @Specification({
-//        "${ws}/connection.established/request",
         "${streams}/connection.established/server/source",
         "${streams}/connection.established/server/nukleus",
         "${streams}/connection.established/server/target" })

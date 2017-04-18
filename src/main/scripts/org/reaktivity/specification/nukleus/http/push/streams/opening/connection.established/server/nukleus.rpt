@@ -18,10 +18,10 @@ property newTargetInputRef ${nuklei:newReferenceId()} # external scope
 
 property nuklei ${nuklei:directory("target/nukleus-itests").streamsCapacity(1024 * 1024, 64 * 1024)}
 
-property sourceInput ${nuklei.streams("http2", "source")}
-property targetInput ${nuklei.streams("target", "http2#source")}
-property targetOutputEst ${nuklei.streams("http", "target")}
-property sourceOutputEst ${nuklei.streams("source", "http#target")}
+property sourceInput ${nuklei.streams("http-push", "source")}
+property targetInput ${nuklei.streams("target", "http-push#source")}
+property targetOutputEst ${nuklei.streams("http-push", "target")}
+property sourceOutputEst ${nuklei.streams("source", "http-push#target")}
 
 property newTargetInputId ${nuklei:newStreamId()}
 property newSourceOutputEstId ${nuklei:newStreamId()}

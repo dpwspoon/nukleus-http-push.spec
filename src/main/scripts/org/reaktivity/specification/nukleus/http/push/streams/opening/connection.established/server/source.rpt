@@ -18,13 +18,11 @@ property newSourceInputRef ${nuklei:newReferenceId()} # external scope
 
 property nuklei ${nuklei:directory("target/nukleus-itests").streamsCapacity(1024 * 1024, 64 * 1024)}
 
-property sourceInput ${nuklei.streams("http2", "source")}
-property sourceOutputEst ${nuklei.streams("source", "http2#target")}
+property sourceInput ${nuklei.streams("http-push", "source")}
+property sourceOutputEst ${nuklei.streams("source", "http-push#target")}
 
 property newSourceInputId ${nuklei:newStreamId()}
 property newSourceCorrelationId ${nuklei:newCorrelationId()}
-
-property newHandshakeKey ${ws:handshakeKey()}
 
 connect await ROUTED_OUTPUT
         agrona://stream/bidirectional
