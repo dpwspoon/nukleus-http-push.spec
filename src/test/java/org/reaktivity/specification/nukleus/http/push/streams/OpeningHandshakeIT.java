@@ -61,4 +61,17 @@ public class OpeningHandshakeIT
         k3po.finish();
     }
 
+    @Test
+    @Specification({
+        "${streams}/sync.cacheable.url/server/source",
+        "${streams}/sync.cacheable.url/server/nukleus",
+        "${streams}/sync.cacheable.url/server/target" })
+    public void shouldSyncCacheableResults() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_INPUT");
+        k3po.notifyBarrier("ROUTED_OUTPUT");
+        k3po.finish();
+    }
+
 }
