@@ -115,7 +115,7 @@ read [0..4]
 
 write [0x00 0x00 0x00 0x02]
       ${newTargetOutputEstId2}
-      [0x00 0x0e]
+      [0x00 0x0c]
       "hello world2"
 write flush
 
