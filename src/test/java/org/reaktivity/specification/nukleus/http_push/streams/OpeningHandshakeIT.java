@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package org.reaktivity.specification.nukleus.http.push.streams;
+package org.reaktivity.specification.nukleus.http_push.streams;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.junit.rules.RuleChain.outerRule;
@@ -34,7 +34,7 @@ import org.reaktivity.specification.nukleus.NukleusRule;
 public class OpeningHandshakeIT
 {
     private final K3poRule k3po = new K3poRule()
-            .addScriptRoot("streams", "org/reaktivity/specification/nukleus/http/push/streams/opening");
+            .addScriptRoot("streams", "org/reaktivity/specification/nukleus/http_push/streams/opening");
 
     private final TestRule timeout = new DisableOnDebug(new Timeout(5, SECONDS));
 
