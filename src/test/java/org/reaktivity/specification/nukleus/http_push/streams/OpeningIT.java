@@ -90,8 +90,8 @@ public class OpeningIT
 
     @Test
     @Specification({
-        "${streams}/inject.push.promise/accept/client",
-        "${streams}/inject.push.promise/accept/server"})
+        "${streams}/strip.injected.headers/accept/client",
+        "${streams}/strip.injected.headers/accept/server"})
     public void shouldAcceptRequestWithInjectedHeaders() throws Exception
     {
         k3po.start();
@@ -101,8 +101,8 @@ public class OpeningIT
 
     @Test
     @Specification({
-        "${streams}/inject.push.promise/connect/client",
-        "${streams}/inject.push.promise/connect/server"})
+        "${streams}/strip.injected.headers/connect/client",
+        "${streams}/strip.injected.headers/connect/server"})
     public void shouldForwardRequestWithInjectHeadersRemoved() throws Exception
     {
         k3po.start();

@@ -27,7 +27,6 @@ write nukleus:begin.ext [0x00] [0x07] ":scheme" [0x04] "http"
                         [0x00] [0x07] ":method" [0x03] "GET"
                         [0x00] [0x05] ":path" [0x05] "/data"
                         [0x00] [0x0a] ":authority" [0x0e] "localhost:8080"
-                        [0x00] [0x0f] "x-poll-interval" [0x01] "2"
 
 read nukleus:begin.ext [0x00] [0x07] ":status" [0x03] "200"
                        [0x00] [0x0e] "content-length" [0x02] "11"
