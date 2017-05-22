@@ -14,8 +14,8 @@
 # under the License.
 #
 
-property newSourceInputRef ${nuklei:newReferenceId()} # external scope
-property newTargetInputRef ${nuklei:newReferenceId()} # external scope
+property newSourceInputRef ${nukleus:newRouteRef()} # external scope
+property newTargetInputRef ${nukleus:newRouteRef()} # external scope
 
 property nukleiUR020001C ${nuklei:directory("target/nukleus-itests").controlCapacity(1024, 1024)}
 

@@ -35,7 +35,7 @@ read [0x0c] "sub-protocol"
 
 write [0x40 0x00 0x00 0x01]
 write ${correlationIdRG010000N}
-write ${nuklei:newReferenceId()}
+write ${nukleus:newRouteRef()}
 write flush
 
 close
