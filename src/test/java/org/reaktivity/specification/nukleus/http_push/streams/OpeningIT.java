@@ -31,47 +31,82 @@ import org.reaktivity.specification.nukleus.NukleusRule;
  * RFC-6455, section 4.1 "Client-Side Requirements" RFC-6455, section 4.2
  * "Server-Side Requirements"
  */
-public class OpeningHandshakeIT
+public class OpeningIT
 {
     private final K3poRule k3po = new K3poRule()
-            .addScriptRoot("streams", "org/reaktivity/specification/nukleus/http_push/streams/opening");
+            .addScriptRoot("streams", "org/reaktivity/specification/nukleus/http_push/streams/proxy/");
 
     private final TestRule timeout = new DisableOnDebug(new Timeout(5, SECONDS));
 
     private final NukleusRule nukleus = new NukleusRule()
-            .directory("target/nukleus-itests")
-            .streams("http-push", "source")
-            .streams("target", "http-push#source")
-            .streams("http-push", "target")
-            .streams("source", "http-push#target");
+            .directory("target/nukleus-itests");
 
     @Rule
     public final TestRule chain = outerRule(nukleus).around(k3po).around(timeout);
 
     @Test
     @Specification({
-        "${streams}/connection.established/server/source",
-        "${streams}/connection.established/server/nukleus",
-        "${streams}/connection.established/server/target" })
-    public void shouldEstablishConnection() throws Exception
+        "${streams}/opening/accept/client",
+        "${streams}/opening/accept/server"})
+    public void shouldAcceptConnection() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_INPUT");
-        k3po.notifyBarrier("ROUTED_OUTPUT");
         k3po.finish();
     }
 
     @Test
     @Specification({
-        "${streams}/sync.cacheable.url/server/source",
-        "${streams}/sync.cacheable.url/server/nukleus",
-        "${streams}/sync.cacheable.url/server/target" })
-    public void shouldSyncCacheableResults() throws Exception
+        "${streams}/opening/connect/client",
+        "${streams}/opening/connect/server"})
+    public void shouldEstablishConnection() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_INPUT");
-        k3po.notifyBarrier("ROUTED_OUTPUT");
         k3po.finish();
     }
 
+    @Test
+    @Specification({
+        "${streams}/inject.push.promise/accept/client",
+        "${streams}/inject.push.promise/accept/server"})
+    public void shouldAcceptRequestAndInjectPushPromise() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_INPUT");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${streams}/inject.push.promise/connect/client",
+        "${streams}/inject.push.promise/connect/server"})
+    public void shouldForwardRequestAndInjectPushPromise() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_INPUT");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${streams}/inject.push.promise/accept/client",
+        "${streams}/inject.push.promise/accept/server"})
+    public void shouldAcceptRequestWithInjectedHeaders() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_INPUT");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${streams}/inject.push.promise/connect/client",
+        "${streams}/inject.push.promise/connect/server"})
+    public void shouldForwardRequestWithInjectHeadersRemoved() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_INPUT");
+        k3po.finish();
+    }
 }
