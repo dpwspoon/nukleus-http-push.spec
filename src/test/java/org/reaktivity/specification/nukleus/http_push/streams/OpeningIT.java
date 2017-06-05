@@ -51,7 +51,7 @@ public class OpeningIT
     public void shouldAcceptConnection() throws Exception
     {
         k3po.start();
-        k3po.notifyBarrier("ROUTED_INPUT");
+        k3po.notifyBarrier("ROUTED_PROXY");
         k3po.finish();
     }
 
@@ -62,7 +62,7 @@ public class OpeningIT
     public void shouldEstablishConnection() throws Exception
     {
         k3po.start();
-        k3po.notifyBarrier("ROUTED_INPUT");
+        k3po.notifyBarrier("ROUTED_PROXY");
         k3po.finish();
     }
 
@@ -73,7 +73,7 @@ public class OpeningIT
     public void shouldAcceptRequestAndInjectPushPromise() throws Exception
     {
         k3po.start();
-        k3po.notifyBarrier("ROUTED_INPUT");
+        k3po.notifyBarrier("ROUTED_PROXY");
         k3po.finish();
     }
 
@@ -84,7 +84,7 @@ public class OpeningIT
     public void shouldForwardRequestAndInjectPushPromise() throws Exception
     {
         k3po.start();
-        k3po.notifyBarrier("ROUTED_INPUT");
+        k3po.notifyBarrier("ROUTED_PROXY");
         k3po.finish();
     }
 
@@ -95,7 +95,7 @@ public class OpeningIT
     public void shouldAcceptRequestWithInjectedHeaders() throws Exception
     {
         k3po.start();
-        k3po.notifyBarrier("ROUTED_INPUT");
+        k3po.notifyBarrier("ROUTED_PROXY");
         k3po.finish();
     }
 
@@ -106,7 +106,7 @@ public class OpeningIT
     public void shouldForwardRequestWithInjectHeadersRemoved() throws Exception
     {
         k3po.start();
-        k3po.notifyBarrier("ROUTED_INPUT");
+        k3po.notifyBarrier("ROUTED_PROXY");
         k3po.finish();
     }
 }

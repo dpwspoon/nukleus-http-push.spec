@@ -14,14 +14,14 @@
 # under the License.
 #
 
-property newSourceInputRef ${nukleus:newRouteRef()} # external scope
-property newTargetInputRef ${nukleus:newRouteRef()} # external scope
+property newProxyAcceptRef ${nukleus:newRouteRef()} # external scope
+property newProxyConnectRef ${nukleus:newRouteRef()} # external scope
 
 property nukleiUR020001C ${nuklei:directory("target/nukleus-itests").controlCapacity(1024, 1024)}
 
 property controlUR020001C ${nukleiUR020001C.control("http-push")}
 
-connect await ROUTED_INPUT
+connect await ROUTED_PROXY
         "agrona://stream/bidirectional"
         option agrona:reader ${agrona:broadcastReceiver(controlUR020001C.controller)}
         option agrona:writer ${agrona:manyToOneWriter(controlUR020001C.nukleus)}
@@ -30,11 +30,11 @@ connected
 
 write [0x00 0x00 0x00 0x02]
 write ${controlUR020001C.nextCorrelationId()}
-write [0x00 0x01]
+write [0x02]
 write [0x06] "source"
-write ${newSourceInputRef}
+write ${newProxyAcceptRef}
 write [0x06] "target"
-write ${newTargetInputRef}
+write ${newProxyConnectRef}
 write flush
 
 read [0x40 0x00 0x00 0x02]

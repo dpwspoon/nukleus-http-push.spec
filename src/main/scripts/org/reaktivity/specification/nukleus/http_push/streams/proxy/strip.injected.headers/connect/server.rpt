@@ -14,11 +14,11 @@
 # under the License.
 #
 
-property newTargetInputRef ${nuklei:newReferenceId()} # external scope
+property newProxyConnectRef ${nuklei:newReferenceId()} # external scope
 
-accept await ROUTED_INPUT
+accept await ROUTED_PROXY
         "nukleus://target/streams/http-push"
-        option nukleus:route ${newTargetInputRef}
+        option nukleus:route ${newProxyConnectRef}
         option nukleus:window 8192
         option nukleus:transmission "duplex"
 accepted
