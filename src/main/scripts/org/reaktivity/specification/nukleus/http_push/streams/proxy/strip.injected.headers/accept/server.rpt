@@ -23,31 +23,31 @@ accept await ROUTED_PROXY
         option nukleus:transmission "duplex"
 accepted
 
-read nukleus:begin.ext [0x00] [0x07] ":scheme" [0x04] "http"
-                       [0x00] [0x07] ":method" [0x03] "GET"
-                       [0x00] [0x05] ":path" [0x05] "/data"
-                       [0x00] [0x0a] ":authority" [0x0e] "localhost:8080"
-                       [0x00] [0x0d] "x-retry-after" [0x01] "2"
-                       [0x00] [0x0f] "x-poll-injected" [0x1b] "x-http-cache-sync, no-cache"
-                       [0x00] [0x0d] "cache-control" [0x08] "no-cache"
-                       [0x00] [0x11] "x-http-cache-sync" [0x06] "always"
+read nukleus:begin.ext ${http:header(":scheme", "http")}
+                       ${http:header(":method", "GET")}
+                       ${http:header(":path", "/data")}
+                       ${http:header(":authority", "localhost:8080")}
+                       ${http:header("x-retry-after", "2")}
+                       ${http:header("x-poll-injected", "x-http-cache-sync, no-cache")}
+                       ${http:header("cache-control", "no-cache")}
+                       ${http:header("x-http-cache-sync", "always")}
 
-write nukleus:begin.ext [0x00] [0x07] ":status" [0x03] "200"
-                        [0x00] [0x0e] "content-length" [0x02] "11"
-                        [0x00] [0x0d] "cache-control" ${httppush:fieldWithLength("stale-while-revalidate=7")}
+write nukleus:begin.ext ${http:header(":status", "200")}
+                        ${http:header("content-length", "11")}
+                        ${http:header("cache-control", "stale-while-revalidate=7")}
 
 connected
 
 read closed
 
-write nukleus:data.ext [0x00] [0x07] ":scheme" [0x04] "http"
-                       [0x00] [0x07] ":method" [0x03] "GET"
-                       [0x00] [0x05] ":path" [0x05] "/data"
-                       [0x00] [0x0a] ":authority" [0x0e] "localhost:8080"
-                       [0x00] [0x0d] "x-retry-after" [0x01] "2"
-                       [0x00] [0x0f] "x-poll-injected" [0x1b] "x-http-cache-sync, no-cache"
-                       [0x00] [0x0d] "cache-control" [0x08] "no-cache"
-                       [0x00] [0x11] "x-http-cache-sync" [0x06] "always"
+write nukleus:data.ext ${http:header(":scheme", "http")}
+                       ${http:header(":method", "GET")}
+                       ${http:header(":path", "/data")}
+                       ${http:header(":authority", "localhost:8080")}
+                       ${http:header("x-retry-after", "2")}
+                       ${http:header("x-poll-injected", "x-http-cache-sync, no-cache")}
+                       ${http:header("cache-control", "no-cache")}
+                       ${http:header("x-http-cache-sync", "always")}
 
 write "hello world"
 

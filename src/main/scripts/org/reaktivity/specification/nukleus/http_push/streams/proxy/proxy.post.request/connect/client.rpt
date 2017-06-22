@@ -16,25 +16,25 @@
 
 property newProxyConnectRef ${nuklei:newReferenceId()} # external scope
 
-accept await ROUTED_PROXY
+connect await ROUTED_PROXY
         "nukleus://target/streams/http-push"
         option nukleus:route ${newProxyConnectRef}
         option nukleus:window 8192
         option nukleus:transmission "duplex"
-accepted
 
-read nukleus:begin.ext ${http:header(":scheme", "http")}
-                       ${http:header(":method", "GET")}
-                       ${http:header(":path", "/data")}
-                       ${http:header(":authority", "localhost:8080")}
-
-write nukleus:begin.ext ${http:header(":status", "200")}
+write nukleus:begin.ext ${http:header(":scheme", "http")}
+                        ${http:header(":method", "POST")}
+                        ${http:header(":path", "/path")}
+                        ${http:header(":authority", "localhost:8080")}
                         ${http:header("content-length", "11")}
+
+
+read nukleus:begin.ext ${http:header(":status", "200")}
 
 connected
 
 write "hello world"
-
 write close
 
 read closed
+

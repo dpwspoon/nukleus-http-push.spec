@@ -24,17 +24,18 @@ accept await ROUTED_PROXY
 accepted
 
 read nukleus:begin.ext ${http:header(":scheme", "http")}
-                       ${http:header(":method", "GET")}
-                       ${http:header(":path", "/data")}
+                       ${http:header(":method", "POST")}
+                       ${http:header(":path", "/path")}
                        ${http:header(":authority", "localhost:8080")}
+                       ${http:header("content-length", "11")}
+
 
 write nukleus:begin.ext ${http:header(":status", "200")}
-                        ${http:header("content-length", "11")}
 
 connected
 
-write "hello world"
+read "hello world"
+read closed
 
 write close
 
-read closed
