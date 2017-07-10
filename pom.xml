@@ -44,19 +44,15 @@
     <checkstyle.suppressions.location>src/conf/checkstyle/suppressions.xml</checkstyle.suppressions.location>
 
     <junit.version>4.12</junit.version>
-    <k3po.version>3.0.0-alpha-73</k3po.version>
-    <k3po.nukleus.ext.version>0.5</k3po.nukleus.ext.version>
-    <nukleus.spec.version>0.7</nukleus.spec.version>
-    <nukleus-http2.spec.version>0.12</nukleus-http2.spec.version>
+
+    <k3po.version>3.0.0-alpha-77</k3po.version>
+    <k3po.nukleus.ext.version>0.7</k3po.nukleus.ext.version>
+
+    <nukleus-http2.spec.version>0.16</nukleus-http2.spec.version>
     <nukleus.plugin.version>0.10</nukleus.plugin.version>
   </properties>
 
   <dependencies>
-    <dependency>
-      <groupId>org.reaktivity</groupId>
-      <artifactId>nukleus.spec</artifactId>
-      <version>${nukleus.spec.version}</version>
-    </dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
