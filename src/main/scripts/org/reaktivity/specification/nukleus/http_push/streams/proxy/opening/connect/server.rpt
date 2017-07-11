@@ -33,8 +33,9 @@ write nukleus:begin.ext ${http:header(":status", "200")}
 
 connected
 
+read closed
+
 write "hello world"
 
 write close
 
-read closed
