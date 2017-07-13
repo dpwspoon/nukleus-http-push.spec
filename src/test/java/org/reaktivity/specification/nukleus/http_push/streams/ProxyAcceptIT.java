@@ -68,9 +68,53 @@ public class ProxyAcceptIT
 
     @Test
     @Specification({
+        "${streams}/inject.header.values/accept/client",
+        "${streams}/inject.header.values/accept/server"})
+    public void shouldInjectHeaderValues() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${streams}/inject.missing.header.values/accept/client",
+        "${streams}/inject.missing.header.values/accept/server"})
+    public void shouldInjectMissingHeaderValues() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
         "${streams}/strip.injected.headers/accept/client",
         "${streams}/strip.injected.headers/accept/server"})
     public void shouldStripInjectedHeaders() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${streams}/strip.injected.header.values/accept/client",
+        "${streams}/strip.injected.header.values/accept/server"})
+    public void shouldStripInjectedHeaderValues() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${streams}/strip.missing.injected.header.values/accept/client",
+        "${streams}/strip.missing.injected.header.values/accept/server"})
+    public void shouldStripMissingInjectedHeaderValues() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_PROXY");

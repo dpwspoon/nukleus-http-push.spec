@@ -14,11 +14,11 @@
 # under the License.
 #
 
-property newProxyConnectRef ${nuklei:newReferenceId()} # external scope
+property newProxyAcceptRef ${nukleus:newRouteRef()} # external scope
 
 accept await ROUTED_PROXY
-        "nukleus://target/streams/http-push"
-        option nukleus:route ${newProxyConnectRef}
+        "nukleus://http-push/streams/source"
+        option nukleus:route ${newProxyAcceptRef}
         option nukleus:window 8192
         option nukleus:transmission "duplex"
 accepted
@@ -28,14 +28,25 @@ read nukleus:begin.ext ${http:header(":scheme", "http")}
                        ${http:header(":path", "/data")}
                        ${http:header(":authority", "localhost:8080")}
                        ${http:header("x-retry-after", "2")}
+                       ${http:header("cache-control", "no-cache")}
 
 write nukleus:begin.ext ${http:header(":status", "200")}
                         ${http:header("content-length", "11")}
+                        ${http:header("cache-control", "response-cache-directive, stale-while-revalidate=31536000")}
 
 connected
+
+read closed
+
+write nukleus:data.ext ${http:header(":scheme", "http")}
+                       ${http:header(":method", "GET")}
+                       ${http:header(":path", "/data")}
+                       ${http:header(":authority", "localhost:8080")}
+                       ${http:header("x-retry-after", "2")}
+                       ${http:header("cache-control", "no-cache")}
+                       ${http:header("x-poll-injected", "x-http-cache-sync")}
+                       ${http:header("x-http-cache-sync", "always")}
 
 write "hello world"
 
 write close
-
-read closed

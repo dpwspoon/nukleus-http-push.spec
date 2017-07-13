@@ -28,6 +28,7 @@ read nukleus:begin.ext ${http:header(":scheme", "http")}
                        ${http:header(":path", "/data")}
                        ${http:header(":authority", "localhost:8080")}
                        ${http:header("x-retry-after", "2")}
+                       ${http:header("cache-control", "request-cache-directive, no-cache")}
 
 write nukleus:begin.ext ${http:header(":status", "200")}
                         ${http:header("content-length", "11")}
