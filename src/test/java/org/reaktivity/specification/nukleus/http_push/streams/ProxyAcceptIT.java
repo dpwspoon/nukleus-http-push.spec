@@ -142,4 +142,15 @@ public class ProxyAcceptIT
         k3po.notifyBarrier("ROUTED_PROXY");
         k3po.finish();
     }
+
+    @Test
+    @Specification({
+        "${streams}/nukleus.sent.reset/accept/client",
+        "${streams}/nukleus.sent.reset/accept/server"})
+    public void shouldResetIfOOM() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
 }
