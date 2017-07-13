@@ -101,8 +101,8 @@ public class ProxyAcceptIT
 
     @Test
     @Specification({
-        "${streams}/server.sent.abort/connect/client",
-        "${streams}/server.sent.abort/connect/server"})
+        "${streams}/server.sent.abort/accept/client",
+        "${streams}/server.sent.abort/accept/server"})
     public void shouldForwardAbortOnConnectReplyToAcceptReply() throws Exception
     {
         k3po.start();
@@ -112,8 +112,19 @@ public class ProxyAcceptIT
 
     @Test
     @Specification({
-        "${streams}/server.sent.reset/connect/client",
-        "${streams}/server.sent.reset/connect/server"})
+        "${streams}/client.sent.abort.on.scheduled.poll/accept/client",
+        "${streams}/client.sent.abort.on.scheduled.poll/accept/server"})
+    public void shouldCancelScheduledPollOnAbort() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${streams}/server.sent.reset/accept/client",
+        "${streams}/server.sent.reset/accept/server"})
     public void shouldForwardResetOnConnectToAccept() throws Exception
     {
         k3po.start();
@@ -123,8 +134,8 @@ public class ProxyAcceptIT
 
     @Test
     @Specification({
-        "${streams}/client.sent.reset/connect/client",
-        "${streams}/client.sent.reset/connect/server"})
+        "${streams}/client.sent.reset/accept/client",
+        "${streams}/client.sent.reset/accept/server"})
     public void shouldForwardResetOnAcceptReplyToConnectReply() throws Exception
     {
         k3po.start();
