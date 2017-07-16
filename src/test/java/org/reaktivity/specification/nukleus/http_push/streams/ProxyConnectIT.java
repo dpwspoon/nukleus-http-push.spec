@@ -68,6 +68,17 @@ public class ProxyConnectIT
 
     @Test
     @Specification({
+        "${streams}/not.inject.push.promise.if.x.poll/connect/client",
+        "${streams}/not.inject.push.promise.if.x.poll/connect/server"})
+    public void notInjectPushPromiseIfXPollInjected() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_PROXY");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
         "${streams}/inject.header.values/connect/client",
         "${streams}/inject.header.values/connect/server"})
     public void shouldInjectHeaderValues() throws Exception

@@ -33,6 +33,9 @@ write nukleus:begin.ext ${http:header(":scheme", "http")}
                         ${http:header("x-retry-after", "2")}
                         ${http:header("if-modified-since", date)}
                         ${http:header("if-none-match", etag)}
+                        ${http:header("cache-control", "no-cache")}
+                        ${http:header("x-poll-injected", "x-http-cache-sync, no-cache")}
+                        ${http:header("x-http-cache-sync", "always")}
 
 read nukleus:begin.ext ${http:header(":status", "200")}
                        ${http:header("content-length", "11")}
@@ -42,17 +45,6 @@ read nukleus:begin.ext ${http:header(":status", "200")}
 connected
 
 write close
-
-read nukleus:data.ext ${http:header(":scheme", "http")}
-                      ${http:header(":method", "GET")}
-                      ${http:header(":path", "/data")}
-                      ${http:header(":authority", "localhost:8080")}
-                      ${http:header("x-retry-after", "2")}
-                      ${http:header("x-poll-injected", "x-http-cache-sync, no-cache")}
-                      ${http:header("cache-control", "no-cache")}
-                      ${http:header("x-http-cache-sync", "always")}
-                      ${http:header("if-modified-since", dateIn5)}
-                      ${http:header("if-none-match", etag2)}
 
 read "hello world"
 

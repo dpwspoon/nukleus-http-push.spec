@@ -20,30 +20,33 @@ property dateIn5 ${http_push:datePlus(5)}
 property etag ${http_push:strongEtag()}
 property etag2 ${http_push:strongEtag()}
 
-accept await ROUTED_PROXY
+connect await ROUTED_PROXY
         "nukleus://target/streams/http-push"
         option nukleus:route ${newProxyConnectRef}
         option nukleus:window 8192
         option nukleus:transmission "duplex"
-accepted
 
-read nukleus:begin.ext ${http:header(":scheme", "http")}
-                       ${http:header(":method", "GET")}
-                       ${http:header(":path", "/data")}
-                       ${http:header(":authority", "localhost:8080")}
-                       ${http:header("x-retry-after", "2")}
-                       ${http:header("if-modified-since", date)}
-                       ${http:header("if-none-match", etag)}
 
-write nukleus:begin.ext ${http:header(":status", "200")}
-                        ${http:header("content-length", "11")}
-                        ${http:header("date", dateIn5)}
-                        ${http:header("etag", etag2)}
+write nukleus:begin.ext ${http:header(":scheme", "http")}
+                        ${http:header(":method", "GET")}
+                        ${http:header(":path", "/data")}
+                        ${http:header(":authority", "localhost:8080")}
+                        ${http:header("x-retry-after", "2")}
+                        ${http:header("if-modified-since", date)}
+                        ${http:header("if-none-match", etag)}
+                        ${http:header("cache-control", "no-cache")}
+                        ${http:header("x-poll-injected", "x-http-cache-sync, no-cache")}
+                        ${http:header("x-http-cache-sync", "always")}
+
+read nukleus:begin.ext ${http:header(":status", "200")}
+                       ${http:header("content-length", "11")}
+                       ${http:header("date", dateIn5)}
+                       ${http:header("etag", etag2)}
 
 connected
 
-write "hello world"
-
-write close
+read "hello world"
 
 read closed
+
+write close

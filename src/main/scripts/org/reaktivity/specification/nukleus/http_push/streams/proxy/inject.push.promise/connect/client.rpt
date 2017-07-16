@@ -15,6 +15,10 @@
 #
 
 property newProxyConnectRef ${nuklei:newReferenceId()} # external scope
+property date ${http_push:date()}
+property dateIn5 ${http_push:datePlus(5)}
+property etag ${http_push:strongEtag()}
+property etag2 ${http_push:strongEtag()}
 
 connect await ROUTED_PROXY
         "nukleus://target/streams/http-push"
@@ -28,10 +32,14 @@ write nukleus:begin.ext ${http:header(":scheme", "http")}
                         ${http:header(":path", "/data")}
                         ${http:header(":authority", "localhost:8080")}
                         ${http:header("x-retry-after", "2")}
+                        ${http:header("if-modified-since", date)}
+                        ${http:header("if-none-match", etag)}
 
 
 read nukleus:begin.ext ${http:header(":status", "200")}
                        ${http:header("content-length", "11")}
+                       ${http:header("date", dateIn5)}
+                       ${http:header("etag", etag2)}
 
 connected
 

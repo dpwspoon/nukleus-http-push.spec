@@ -14,15 +14,15 @@
 # under the License.
 #
 
-property newProxyAcceptRef ${nukleus:newRouteRef()} # external scope
+property newProxyConnectRef ${nuklei:newReferenceId()} # external scope
 property date ${http_push:date()}
 property dateIn5 ${http_push:datePlus(5)}
 property etag ${http_push:strongEtag()}
 property etag2 ${http_push:strongEtag()}
 
 accept await ROUTED_PROXY
-        "nukleus://http-push/streams/source"
-        option nukleus:route ${newProxyAcceptRef}
+        "nukleus://target/streams/http-push"
+        option nukleus:route ${newProxyConnectRef}
         option nukleus:window 8192
         option nukleus:transmission "duplex"
 accepted
@@ -34,29 +34,19 @@ read nukleus:begin.ext ${http:header(":scheme", "http")}
                        ${http:header("x-retry-after", "2")}
                        ${http:header("if-modified-since", date)}
                        ${http:header("if-none-match", etag)}
+                       ${http:header("cache-control", "no-cache")}
+                       ${http:header("x-poll-injected", "x-http-cache-sync, no-cache")}
+                       ${http:header("x-http-cache-sync", "always")}
 
 write nukleus:begin.ext ${http:header(":status", "200")}
                         ${http:header("content-length", "11")}
                         ${http:header("date", dateIn5)}
                         ${http:header("etag", etag2)}
-                        ${http:header("cache-control", "stale-while-revalidate=31536000")}
-                        
 
 connected
-
-read closed
-
-write nukleus:data.ext ${http:header(":scheme", "http")}
-                       ${http:header(":method", "GET")}
-                       ${http:header(":path", "/data")}
-                       ${http:header(":authority", "localhost:8080")}
-                       ${http:header("x-retry-after", "2")}
-                       ${http:header("x-poll-injected", "x-http-cache-sync, no-cache")}
-                       ${http:header("cache-control", "no-cache")}
-                       ${http:header("x-http-cache-sync", "always")}
-                       ${http:header("if-modified-since", dateIn5)}
-                       ${http:header("if-none-match", etag2)}
 
 write "hello world"
 
 write close
+
+read closed
