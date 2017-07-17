@@ -38,7 +38,7 @@ write nukleus:begin.ext ${http:header(":scheme", "http")}
 
 read nukleus:begin.ext ${http:header(":status", "200")}
                        ${http:header("content-length", "11")}
-                       ${http:header("date", dateIn5)}
+                       ${http:header("last-modified", dateIn5)}
                        ${http:header("etag", etag2)}
 
 connected

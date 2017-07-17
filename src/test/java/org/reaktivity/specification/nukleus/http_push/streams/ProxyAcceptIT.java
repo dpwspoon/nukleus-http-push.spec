@@ -200,8 +200,8 @@ public class ProxyAcceptIT
 
     @Test
     @Specification({
-        "${streams}/nukleus.sent.reset/accept/client",
-        "${streams}/nukleus.sent.reset/accept/server"})
+        "${streams}/nukleus.overloaded/accept/client",
+        "${streams}/nukleus.overloaded/accept/server"})
     public void shouldResetIfOOM() throws Exception
     {
         k3po.start();

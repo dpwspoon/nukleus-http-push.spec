@@ -20,9 +20,7 @@ connect await ROUTED_PROXY
         "nukleus://http-push/streams/source"
         option nukleus:route ${newProxyAcceptRef}
         option nukleus:window 8192
-        option nukleus:transmission "simplex"
-
-connected
+        option nukleus:transmission "duplex"
 
 write nukleus:begin.ext ${http:header(":scheme", "http")}
                         ${http:header(":method", "GET")}
@@ -33,4 +31,10 @@ write nukleus:begin.ext ${http:header(":scheme", "http")}
                         ${http:header("cache-control", "no-cache")}
                         ${http:header("x-http-cache-sync", "always")}
 
-write aborted
+read nukleus:begin.ext ${http:header(":status", "503")}
+
+connected
+
+write close
+
+read aborted
