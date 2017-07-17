@@ -34,9 +34,6 @@ read nukleus:begin.ext ${http:header(":scheme", "http")}
                        ${http:header("x-retry-after", "2")}
                        ${http:header("if-modified-since", date)}
                        ${http:header("if-none-match", etag)}
-                       ${http:header("cache-control", "no-cache")}
-                       ${http:header("x-poll-injected", "x-http-cache-sync, no-cache")}
-                       ${http:header("x-http-cache-sync", "always")}
 
 write nukleus:begin.ext ${http:header(":status", "200")}
                         ${http:header("content-length", "11")}

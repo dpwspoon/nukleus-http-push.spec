@@ -40,7 +40,6 @@ write nukleus:begin.ext ${http:header(":status", "200")}
                         ${http:header("last-modified", dateIn5)}
                         ${http:header("etag", etag2)}
                         ${http:header("cache-control", "stale-while-revalidate=31536000")}
-                        
 
 connected
 
@@ -51,11 +50,11 @@ write nukleus:data.ext ${http:header(":scheme", "http")}
                        ${http:header(":path", "/data")}
                        ${http:header(":authority", "localhost:8080")}
                        ${http:header("x-retry-after", "2")}
+                       ${http:header("if-modified-since", dateIn5)}
+                       ${http:header("if-none-match", etag2)}
                        ${http:header("x-poll-injected", "x-http-cache-sync, no-cache")}
                        ${http:header("cache-control", "no-cache")}
                        ${http:header("x-http-cache-sync", "always")}
-                       ${http:header("if-modified-since", dateIn5)}
-                       ${http:header("if-none-match", etag2)}
 
 write "hello world"
 
